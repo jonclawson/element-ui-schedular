@@ -89,7 +89,6 @@
         target="_blank"
         >send mail</a
       >
-
     </div>
   </div>
 </template>
@@ -198,11 +197,11 @@ export default {
         end: this.endTime,
       };
       this.link = encodeURI(
-        `mailto:${this.recipients}?subject=${this.event}&body=${`${this.event} \n ${
-          this.description
-        } \n ${this.location} \n ${this.date} \n ${this.time} - ${
-          this.endTime
-        } \n Follow Link to set calendar: https://${
+        `mailto:${this.recipients}?subject=${this.event}&body=${`${
+          this.event
+        } \n ${this.description} \n ${this.location} \n ${this.date} \n ${
+          this.time
+        } - ${this.endTime} \n Follow Link to set calendar: https://${
           window.location.hostname
         }?event=${JSON.stringify(eventS)}`}`
       );
