@@ -78,7 +78,6 @@
           v-model="time"
         />
       </el-form-item>
-      </el-form-item>
     </div>
 
     <div class="block">
