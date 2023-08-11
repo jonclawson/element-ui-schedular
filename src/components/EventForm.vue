@@ -203,7 +203,7 @@ export default {
           this.time
         } - ${this.endTime} \n Follow Link to set calendar: https://${
           window.location.hostname
-        }?event=${JSON.stringify(eventS)}`}`
+        }?event=${encodeURI(JSON.stringify(eventS))}`}`
       );
     },
   },
