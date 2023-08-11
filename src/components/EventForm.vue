@@ -191,7 +191,7 @@ export default {
         // ]
       };
 
-      const filename = 'ExampleEvent.ics';
+      const filename = 'Event.ics';
       const file = await new Promise((resolve, reject) => {
         createEvent(event, (error, value) => {
           if (error) {
