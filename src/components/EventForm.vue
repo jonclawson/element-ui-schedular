@@ -67,16 +67,28 @@
         <el-time-select
           v-if="!readonly"
           v-model="time"
-          start="08:30"
+          format="h:mm:ss A"
+          start="01:00"
           step="00:15"
-          end="18:30"
+          end="24:00"
           placeholder="Select time"
         />
-        <el-input
-          v-if="readonly"
-          :readonly="readonly"
-          v-model="time"
+        <el-input v-if="readonly" :readonly="readonly" v-model="time" />
+      </el-form-item>
+    </div>
+
+    <div v-if="date" class="block">
+      <el-form-item label="End Time">
+        <el-time-select
+          v-if="!readonly"
+          v-model="endTime"
+          format="h:mm:ss A"
+          start="01:00"
+          step="00:15"
+          end="24:00"
+          placeholder="Select time"
         />
+        <el-input v-if="readonly" :readonly="readonly" v-model="endTime" />
       </el-form-item>
     </div>
 
@@ -130,17 +142,37 @@ export default {
     };
   },
   methods: {
+    getTimeDiff(eDate, start, end) {
+
+      const date = eDate.toDateString()
+      console.log(date);
+
+      const time = new Date(date + ' ' + start);
+      const time2 = new Date(date + ' ' + end);
+      console.log(time);
+      console.log(time2);
+      const diff = time2 - time;
+      console.log(diff);
+      console.log(new Date(diff))
+      let h,m,s;
+      h = Math.floor(diff/1000/60/60);
+      m = Math.floor((diff/1000/60/60 - h)*60);
+      s = Math.floor(((diff/1000/60/60 - h)*60 - m)*60);
+      console.log(h,m, s);
+      return {h, m, s}
+    },
     async setAppointment() {
       const time = this.time.split(':');
+      const timeDiff = this.getTimeDiff(this.date, this.time, this.endTime);
       const event = {
         start: [
           this.date.getFullYear(),
           this.date.getMonth() + 1,
           this.date.getDate(),
           +time[0],
-          +time[1],
+          +time[1].split(' ')[0],
         ],
-        duration: { hours: 6, minutes: 30 },
+        duration: { hours: timeDiff.h, minutes: timeDiff.m },
         title: this.event,
         description: this.description,
         location: this.location,
